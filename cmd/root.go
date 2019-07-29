@@ -255,19 +255,19 @@ func setupLog(logMethod string) {
 func quickSetup(flags *pflag.FlagSet, d pythonData) {
 	set := &settings.Settings{
 		Key:           generateKey(),
-		Signup:        false,
-		CreateUserDir: false,
+		Signup:        true,
+		CreateUserDir: true,
 		Defaults: settings.UserDefaults{
 			Scope:  ".",
-			Locale: "en",
+			Locale: "zh-tw",
 			Perm: users.Permissions{
 				Admin:    false,
-				Execute:  true,
+				Execute:  false,
 				Create:   true,
 				Rename:   true,
 				Modify:   true,
 				Delete:   true,
-				Share:    true,
+				Share:    false,
 				Download: true,
 			},
 		},
