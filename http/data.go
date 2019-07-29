@@ -1,6 +1,7 @@
 package http
 
 import (
+	"fmt"
 	"log"
 	"net/http"
 	"strconv"
@@ -24,6 +25,11 @@ type data struct {
 
 // Check implements rules.Checker.
 func (d *data) Check(path string) bool {
+	//fmt.Println("check path", path)
+	if path == "/GameData" {
+		return false
+	}
+
 	for _, rule := range d.user.Rules {
 		if rule.Matches(path) {
 			return rule.Allow
