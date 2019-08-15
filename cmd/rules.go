@@ -3,10 +3,10 @@ package cmd
 import (
 	"fmt"
 
-	"github.com/filebrowser/filebrowser/v2/rules"
-	"github.com/filebrowser/filebrowser/v2/settings"
-	"github.com/filebrowser/filebrowser/v2/storage"
-	"github.com/filebrowser/filebrowser/v2/users"
+	"github.com/freespace8/filebrowser/v2/rules"
+	"github.com/freespace8/filebrowser/v2/settings"
+	"github.com/freespace8/filebrowser/v2/storage"
+	"github.com/freespace8/filebrowser/v2/users"
 	"github.com/spf13/cobra"
 	"github.com/spf13/pflag"
 )
@@ -18,8 +18,8 @@ func init() {
 }
 
 var rulesCmd = &cobra.Command{
-	Use:     "rules",
-	Short:   "Rules management utility",
+	Use:   "rules",
+	Short: "Rules management utility",
 	Long: `On each subcommand you'll have available at least two flags:
 "username" and "id". You must either set only one of them
 or none. If you set one of them, the command will apply to

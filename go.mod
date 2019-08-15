@@ -1,4 +1,4 @@
-module github.com/filebrowser/filebrowser/v2
+module github.com/freespace8/filebrowser/v2
 
 require (
 	github.com/DataDog/zstd v1.4.0 // indirect

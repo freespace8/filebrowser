@@ -3,8 +3,8 @@ package http
 import (
 	"net/http"
 
-	"github.com/filebrowser/filebrowser/v2/settings"
-	"github.com/filebrowser/filebrowser/v2/storage"
+	"github.com/freespace8/filebrowser/v2/settings"
+	"github.com/freespace8/filebrowser/v2/storage"
 	"github.com/gorilla/mux"
 )
 
@@ -17,7 +17,6 @@ func NewHandler(storage *storage.Storage, server *settings.Server) (http.Handler
 	server.Clean()
 
 	r := mux.NewRouter()
-	index, static := getStaticHandlers(storage, server)
 
 	// NOTE: This fixes the issue where it would redirect if people did not put a
 	// trailing slash in the end. I hate this decision since this allows some awful
@@ -28,12 +27,19 @@ func NewHandler(storage *storage.Storage, server *settings.Server) (http.Handler
 		return handle(fn, prefix, storage, server)
 	}
 
-	r.PathPrefix("/static").Handler(static)
-	r.NotFoundHandler = index
+	if !server.ApiMode {
+		index, static := getStaticHandlers(storage, server)
+		r.PathPrefix("/static").Handler(static)
+		r.NotFoundHandler = index
+	}
 
 	api := r.PathPrefix("/api").Subrouter()
 
-	api.Handle("/login", monkey(loginHandler, ""))
+	if !server.ApiMode {
+		api.Handle("/login", monkey(loginHandler, ""))
+	} else {
+		api.Handle("/login", monkey(loginApiModeHandler, ""))
+	}
 	api.Handle("/signup", monkey(signupHandler, ""))
 	api.Handle("/renew", monkey(renewHandler, ""))
 

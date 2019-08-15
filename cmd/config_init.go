@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/filebrowser/filebrowser/v2/settings"
+	"github.com/freespace8/filebrowser/v2/settings"
 	"github.com/spf13/cobra"
 )
 

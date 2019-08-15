@@ -13,11 +13,11 @@ import (
 	"strings"
 	"syscall"
 
-	"github.com/filebrowser/filebrowser/v2/auth"
-	fbhttp "github.com/filebrowser/filebrowser/v2/http"
-	"github.com/filebrowser/filebrowser/v2/settings"
-	"github.com/filebrowser/filebrowser/v2/storage"
-	"github.com/filebrowser/filebrowser/v2/users"
+	"github.com/freespace8/filebrowser/v2/auth"
+	fbhttp "github.com/freespace8/filebrowser/v2/http"
+	"github.com/freespace8/filebrowser/v2/settings"
+	"github.com/freespace8/filebrowser/v2/storage"
+	"github.com/freespace8/filebrowser/v2/users"
 	homedir "github.com/mitchellh/go-homedir"
 	"github.com/spf13/cobra"
 	"github.com/spf13/pflag"
@@ -55,6 +55,7 @@ func addServerFlags(flags *pflag.FlagSet) {
 	flags.StringP("root", "r", ".", "root to prepend to relative paths")
 	flags.String("socket", "", "socket to listen to (cannot be used with address, port, cert nor key flags)")
 	flags.StringP("baseurl", "b", "", "base url")
+	flags.BoolP("apimode", "m", false, "apimode")
 }
 
 var rootCmd = &cobra.Command{
@@ -163,6 +164,10 @@ func getRunParams(flags *pflag.FlagSet, st *storage.Storage) *settings.Server {
 
 	if val, set := getParamB(flags, "log"); set {
 		server.Log = val
+	}
+
+	if _, set := getParamB(flags, "apimode"); set {
+		server.ApiMode = true
 	}
 
 	isSocketSet := false

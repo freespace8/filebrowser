@@ -4,7 +4,7 @@ import (
 	"crypto/rand"
 	"strings"
 
-	"github.com/filebrowser/filebrowser/v2/rules"
+	"github.com/freespace8/filebrowser/v2/rules"
 )
 
 // AuthMethod describes an authentication method.
@@ -38,6 +38,7 @@ type Server struct {
 	Port    string `json:"port"`
 	Address string `json:"address"`
 	Log     string `json:"log"`
+	ApiMode bool   `json:"apiMode"`
 }
 
 // Clean cleans any variables that might need cleaning.

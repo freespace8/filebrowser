@@ -1,8 +1,8 @@
 package cmd
 
 import (
-	"github.com/filebrowser/filebrowser/v2/settings"
-	"github.com/filebrowser/filebrowser/v2/users"
+	"github.com/freespace8/filebrowser/v2/settings"
+	"github.com/freespace8/filebrowser/v2/users"
 	"github.com/spf13/cobra"
 )
 

@@ -3,8 +3,8 @@ package bolt
 import (
 	"github.com/asdine/storm"
 	"github.com/asdine/storm/q"
-	"github.com/filebrowser/filebrowser/v2/errors"
-	"github.com/filebrowser/filebrowser/v2/share"
+	"github.com/freespace8/filebrowser/v2/errors"
+	"github.com/freespace8/filebrowser/v2/share"
 )
 
 type shareBackend struct {

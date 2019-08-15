@@ -10,8 +10,8 @@ import (
 
 	jwt "github.com/dgrijalva/jwt-go"
 	"github.com/dgrijalva/jwt-go/request"
-	"github.com/filebrowser/filebrowser/v2/errors"
-	"github.com/filebrowser/filebrowser/v2/users"
+	"github.com/freespace8/filebrowser/v2/errors"
+	"github.com/freespace8/filebrowser/v2/users"
 )
 
 type userInfo struct {
@@ -93,6 +93,25 @@ var loginHandler = func(w http.ResponseWriter, r *http.Request, d *data) (int, e
 	}
 
 	user, err := auther.Auth(r, d.store.Users, d.server.Root)
+	if err == os.ErrPermission {
+		return http.StatusForbidden, nil
+	} else if err != nil {
+		return http.StatusInternalServerError, err
+	} else {
+		return printToken(w, r, d, user)
+	}
+}
+
+var loginApiModeHandler = func(w http.ResponseWriter, r *http.Request, d *data) (int, error) {
+	auther, err := d.store.Auth.Get(d.settings.AuthMethod)
+	if err != nil {
+		return http.StatusInternalServerError, err
+	}
+
+	user, err := auther.Auth(r, d.store.Users, d.server.Root)
+	if user.Username == "admin" {
+		return http.StatusInternalServerError, err
+	}
 	if err == os.ErrPermission {
 		return http.StatusForbidden, nil
 	} else if err != nil {
